@@ -39,19 +39,13 @@ def show(name):
 	msg = u'[github]::リポジトリ %s に push されました。' % name
 	pit.notification(msg)
 	return msg
+
 u"""ちょっと検討中"""
-# @app.before_first_request
-# def setUpSkype():
-	# roomName = unicode(sys.argv[1], 'utf-8')
+@app.before_first_request
+def setUpSkype():
+	roomName = unicode(sys.argv[1], 'utf-8')
 	# roomName = 'test'
-	# pit = Skypit(roomName)
-	# on_time.skype = pit.sp
-	# try:
-		# on_time()
-	# except:
-		# import sys
-		# sys.exit()
-	# pit.run()
+	pit = Skypit(roomName)
 
 
 from werkzeug.contrib.fixers import ProxyFix
@@ -60,10 +54,4 @@ app.wsgi_app = ProxyFix(app.wsgi_app)
 if __name__ == '__main__':
 	roomName = unicode(sys.argv[1], 'utf-8')
 	pit = Skypit(roomName)
-	on_time.skype = pit.sp
-	try:
-		on_time()
-	except KeyboardInterrupt:
-		import sys
-		sys.exit()
 	app.run()
